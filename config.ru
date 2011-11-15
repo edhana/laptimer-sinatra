@@ -3,5 +3,5 @@ require 'bundler'
 
 Bundler.require
 
-require './src/laptimer-receiver'
-run laptimer-receiver
+require './src/web/laptimer-receiver'
+run Receiver
