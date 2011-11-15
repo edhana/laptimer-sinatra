@@ -1,0 +1,4 @@
+Sinatra APP to serve as a middleware between mobile phones and the laptimer web application.
+
+It handles the point receive process.
+
