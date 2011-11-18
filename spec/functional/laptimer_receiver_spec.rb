@@ -9,7 +9,12 @@ describe "Receiver" do
 
   it "should respond to /" do
     get '/'    
-    last_response.status.should be_eql(200)
+    last_response.status.should == 200
     last_response.body.include?('Hello World').should be_true
+  end
+
+  it "should respond to /new_position" do
+    post '/new_position'
+    last_response.status.should == 200
   end
 end
