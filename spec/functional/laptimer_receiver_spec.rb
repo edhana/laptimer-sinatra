@@ -14,7 +14,9 @@ describe "Receiver" do
   end
 
   it "should respond to /new_position" do
-    post '/new_position'
+    @json_positions =  JSON 'vehicle_position' => [{'latitude' => 12, 'lomngitude'=> 13}]
+    post 'new_position', :positions => @json_positions.gsub(':', '=>'), :vehicle_id => 12, :event_id => 10
+    # post '/new_position'
     last_response.status.should == 200
   end
 end
