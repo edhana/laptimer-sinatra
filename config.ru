@@ -8,7 +8,7 @@ Mongoid.logger = Logger.new($stdout)
 Mongoid.add_language("pt-BR")
 Mongoid.include_root_in_json
 
-#MongoDB Config
+#MongoDB Config -- Change for production
 configure do
   Mongoid.configure do |config|
     name = "laptimer_development"
