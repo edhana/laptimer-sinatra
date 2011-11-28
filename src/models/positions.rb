@@ -1,4 +1,5 @@
 require 'mongoid'
+require 'json'
 
 class Position
   include Mongoid::Document
@@ -18,4 +19,19 @@ class Position
   validates_presence_of :longitude
   validates_presence_of :speed
   validates_presence_of :acquired_date
+
+  def self.save_from_json(event_id, vehicle_id, positions_json)
+    positions = JSON(positions_json)
+
+    positions['vehicle_position'].each do |pos|
+      position = Position.new
+      position.vehicle_id = vehicle_id
+      position.event_id = event_id
+      position.latitude = pos['latitude']
+      position.longitude = pos['longitude']
+      position.speed = pos['speed'].to_i
+      position.acquired_date = Time.new(pos['date'])
+      position.save
+    end
+  end
 end

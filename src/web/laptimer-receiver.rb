@@ -15,17 +15,7 @@ class Receiver < Sinatra::Base
     event_id = params[:event_id].to_i
 
     begin
-
-      positions['vehicle_position'].each do |pos|
-        position = Position.new
-        position.vehicle_id = vehicle_id
-        position.event_id = event_id
-        position.latitude = pos['latitude']
-        position.longitude = pos['longitude']
-        position.speed = pos['speed'].to_i
-
-        position.save
-      end
+      Position.save_from_json(event_id, vehicle_id, positions)
     rescue Exception, NameError => error_string
       $stderr.print "Falhou salvar: " + error_string
     end
