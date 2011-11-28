@@ -17,4 +17,10 @@ describe "Position" do
     position.speed = 314
     position.save.should be_true
   end
+
+  it "should save a position that came from a json string" do
+    json_positions =  JSON 'vehicle_position' => [{'latitude' => 12, 'longitude'=> 13, 'speed' => 250}]
+    json = json_positions.gsub(':', '=>')
+    Position.save_from_json(json).should be_true
+  end
 end
