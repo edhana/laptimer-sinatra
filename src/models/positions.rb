@@ -21,7 +21,8 @@ class Position
   validates_presence_of :acquired_date
 
   def self.save_from_json(event_id, vehicle_id, positions_json)
-    positions = JSON(positions_json)
+    pos_json = positions_json.to_s.gsub('=>', ':')
+    positions = JSON(pos_json)["positions"]
 
     positions['vehicle_position'].each do |pos|
       position = Position.new
