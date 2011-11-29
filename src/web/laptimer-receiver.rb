@@ -17,7 +17,7 @@ class Receiver < Sinatra::Base
     begin
       Position.save_from_json(event_id, vehicle_id, positions)
     rescue Exception, NameError => error_string
-      $stderr.print "Falhou salvar: " + error_string
+      $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
     end
 
     # TODO: Remover -- resposta html
