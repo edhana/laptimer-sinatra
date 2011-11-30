@@ -6,7 +6,18 @@ Dir[File.expand_path("../../models/*.rb", __FILE__)].each { |file| require file 
 class Receiver < Sinatra::Base
 
   get '/' do
-    "Hello World #{params[:name]}".strip
+    html = "<h1>Positions: -  #{params[:name]} </h1>".strip
+
+    positions = Position.all
+    unless positions.empty?
+      positions.each do |p|
+        html += "Position: lat: #{p.latitude} long: #{p.longitude}"
+      end
+    else
+      html += "<br/> No Positions found!"
+    end
+
+    html
   end
 
   post '/new_position' do
@@ -20,7 +31,8 @@ class Receiver < Sinatra::Base
       $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
     end
 
-    # TODO: Remover -- resposta html
+    # TODO --> Retornar o json
+    # JSON('OKOK')
     'ALO'
   end
 end
