@@ -32,7 +32,7 @@ describe "Receiver" do
   end
 
   it "should test the device" do
-    post 'test_server', :device => 'Android Froyo 2.2'
+    get 'test_server', :device => 'Android Froyo 2.2'
     last_response.status.should == 200
     last_response.body.include?('Android Froyo 2.2').should be_true
   end

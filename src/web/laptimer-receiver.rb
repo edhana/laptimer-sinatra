@@ -36,7 +36,7 @@ class Receiver < Sinatra::Base
     'ALO'
   end
 
-  post '/test_server' do
+  get '/test_server' do
     html = "<h1>Laptimer Device Server v0.1 -  #{params[:device]} </h1>".strip
     html
   end
