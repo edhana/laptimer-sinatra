@@ -35,4 +35,9 @@ class Receiver < Sinatra::Base
     # JSON('OKOK')
     'ALO'
   end
+
+  post '/test_server' do
+    html = "<h1>Laptimer Device Server v0.1 -  #{params[:device]} </h1>".strip
+    html
+  end
 end
