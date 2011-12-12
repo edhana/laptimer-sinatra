@@ -1,9 +1,5 @@
 defaults: &defaults
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  host: localhost
   # slaves:
   #   - host: slave1.local
   #     port: 27018
@@ -19,9 +15,9 @@ test:
   database: laptimer_test
 
 production:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  host: staff.mongohq.com
+  port: 10090
+  username: laptimer-sinatra
+  password: laptimer-sinatra
+  database: laptimer
   logger: false
