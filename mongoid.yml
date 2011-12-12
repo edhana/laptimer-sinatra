@@ -20,7 +20,7 @@ test:
 production:
   host: staff.mongohq.com
   port: 10090
-  username: laptimer-sinatra
-  password: laptimer-sinatra
+  username: lsinatra
+  password: lsinatra
   database: laptimer
   logger: false
