@@ -35,4 +35,18 @@ class Position
       position.save
     end
   end
+
+  def self.save_position_from_json(event_id, vehicle_id, position_json)
+    pos_json = position_json.to_s.gsub('=>', ':')
+    pos = JSON(pos_json)["vehicle_position"]
+    
+    position = Position.new
+    position.vehicle_id = vehicle_id
+    position.event_id = event_id
+    position.latitude = pos['latitude']
+    position.longitude = pos['longitude']
+    position.speed = pos['speed'].to_i
+    position.acquired_date = Time.new(pos['date'])
+    position.save
+  end
 end

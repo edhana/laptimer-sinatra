@@ -22,4 +22,9 @@ describe "Position" do
     json_string = '{"positions" : { "vehicle_position" : [{"latitude" : 12, "longitude" : 13, "speed" : 250, "date" : "2011-11-28 20:47:51 -0200" }]}}'
     Position.save_from_json(1, 1, json_string).should be_true
   end
+
+  it "should save a single position that came from a json string" do
+    json_string = '{ "vehicle_position" : {"latitude" : 12, "longitude" : 13, "speed" : 250, "date" : "2011-11-28 20:47:51 -0200" }}'
+    expect { Position.save_position_from_json(1, 1, json_string) }.to change(Position, :count).by(1)
+  end
 end
