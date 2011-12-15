@@ -18,13 +18,13 @@ describe "Receiver" do
     last_response.body.include?('No Positions found!').should be_true
   end
 
-  it "should respond to /new_position" do
-    post 'new_position', :positions => @json_positions.gsub(':', '=>'), :vehicle_id => 12, :event_id => 10
+  it "should respond to /receive_positions" do
+    post 'receive_positions', :positions => @json_positions.gsub(':', '=>'), :vehicle_id => 12, :event_id => 10
     last_response.status.should == 200
   end
 
   it "should show the positions" do
-    post 'new_position', :positions => @json_positions.gsub(':', '=>'), :vehicle_id => 12, :event_id => 10
+    post 'receive_positions', :positions => @json_positions.gsub(':', '=>'), :vehicle_id => 12, :event_id => 10
     last_response.status.should == 200
     get '/'    
     last_response.status.should == 200
@@ -35,5 +35,10 @@ describe "Receiver" do
     get 'test_server', :device => 'Android Froyo 2.2'
     last_response.status.should == 200
     last_response.body.include?('Android Froyo 2.2').should be_true
+  end
+
+  it "should receive just 1 position" do
+    @vehicle_position =  JSON  'vehicle_position' => {'latitude' => 12, 'longitude'=> 13, 'speed' => 250, 'date' => Time.now.to_s}
+    expect { post 'new_position', :vehicle_position => @vehicle_position, :vehicle_id => 12, :event_id => 10 }.to change(Position, :count).by(1)
   end
 end
