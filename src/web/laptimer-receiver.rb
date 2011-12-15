@@ -38,7 +38,7 @@ class Receiver < Sinatra::Base
 
   post '/new_position' do
     # position = a#eval(params[:vehicle_position])
-    puts "======> params[:vehicle_position]"
+    puts "======> #{params[:vehicle_position]}"
     position = params[:vehicle_position]
     vehicle_id = params[:vehicle_id].to_i
     event_id = params[:event_id].to_i
