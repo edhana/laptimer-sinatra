@@ -38,14 +38,17 @@ class Receiver < Sinatra::Base
 
   post '/new_position' do
     # position = a#eval(params[:vehicle_position])
-    puts "======> #{params[:vehicle_position]}"
     position = params[:vehicle_position]
     vehicle_id = params[:vehicle_id].to_i
     event_id = params[:event_id].to_i
+    puts "======> Position: #{position.inspect}"
+
     begin
       Position.save_position_from_json(event_id, vehicle_id, position)
+      # Position.new(event_id, vehicle_id, position)
     rescue Exception, NameError => error_string
-      $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
+      # $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
+      puts "[ERROR] Save Failed - Object Position: " + error_string
     end
 
     # TODO --> Retornar o json
