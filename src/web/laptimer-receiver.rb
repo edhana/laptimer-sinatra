@@ -41,11 +41,9 @@ class Receiver < Sinatra::Base
     position = params[:vehicle_position]
     vehicle_id = params[:vehicle_id].to_i
     event_id = params[:event_id].to_i
-    puts "======> Position: #{position.inspect}"
 
     begin
       Position.save_position_from_json(event_id, vehicle_id, position)
-      # Position.new(event_id, vehicle_id, position)
     rescue Exception, NameError => error_string
       # $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
       puts "[ERROR] Save Failed - Object Position: " + error_string
