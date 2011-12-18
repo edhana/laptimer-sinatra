@@ -37,11 +37,8 @@ class Position
   end
 
   def self.save_position_from_json(event_id, vehicle_id, position_json)
-    puts "===> teste 1"
     pos_json = position_json.to_s.gsub('=>', ':')
-    puts "===> teste 2 #{pos_json}"
     pos = JSON(pos_json)
-    puts "===> teste 3 #{pos.inspect}"
     
     position = Position.new
     position.vehicle_id = vehicle_id
@@ -51,6 +48,5 @@ class Position
     position.speed = pos['speed'].to_i
     position.acquired_date = Time.new(pos['acquired_date'])
     position.save
-    puts "===> teste 4: #{position.inspect}"
   end
 end
