@@ -28,29 +28,29 @@ class Receiver < Sinatra::Base
       errors << "Sem parametros recebidos no servidor."
     end
 
-    positions = JSON.parse(params[:positions])
-    vehicle_id = positions['vehicle_id'].to_i
-    event_id = positions['event_id'].to_i
+    received_json = JSON.parse(params[:positions])
+    vehicle_id = received_json['vehicle_id'].to_i
+    event_id = received_json['event_id'].to_i
+    positions = received_json['vehicle_positions']
 
-    # puts "=====> Le Positions ===> #{positions[:vehicle_id]}"
-    # vehicle_id = params[:vehicle_id].to_i
-    # puts "===> Vehicle_id #{vehicle_id}"
-    # event_id = params[:event_id].to_i
+    puts "=====> Le Positions ===> #{positions.inspect}"
 
-    # begin
-    #   Position.save_from_json(event_id, vehicle_id, positions)
-    # rescue Exception, NameError => error_string
-    #   $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
-    # end
+    begin
+      Position.save_from_json(event_id, vehicle_id, positions)
+    rescue Exception, NameError => error_string
+      $stderr.print "[ERROR] Save Failed - Object Position: " + error_string
+      errors << error_string
+    end
 
     # TODO --> Retornar o json
     # JSON('OKOK')
-    # if errors.count > 0
-    #   { :error_number => 0, :errors => nil, :message => 'Positions Saved' }.to_json
-    # else
-      { :error_number => errors.count, :message => errors.collect{|e| "#{e} | "} }.to_json
-    # end
+    if errors.count > 0
+      json = { :error_number => 0, :errors => nil, :message => 'Positions Saved' }.to_json
+    else
+      json = { :error_number => errors.count, :message => errors.collect{|e| "#{e} | "} }.to_json
+    end
 
+    json 
   end
 
   post '/new_position' do
